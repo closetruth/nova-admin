@@ -59,6 +59,16 @@
 
 ## 演示账号
 
+### MySQL（后端内置）
+
+| 用户名 | 密码 |
+|--------|------|
+| `root` | `1234` |
+
+数据库名：`nova_admin`。可通过环境变量 `DB_USERNAME` / `DB_PASSWORD` 覆盖。
+
+### 登录账号
+
 导入 [`nova_admin.sql`](nova_admin.sql) 后可用：
 
 | 用户名 | 密码 |
@@ -73,16 +83,14 @@
 ### 1. 初始化数据库
 
 ```bash
-mysql -u root -p < nova_admin.sql
+mysql -u root -p1234 < nova_admin.sql
 ```
 
 ### 2. 配置环境变量
 
-参考 [`.env.example`](.env.example)。PowerShell 示例：
+后端已内置 `root` / `1234`，本地可直接启动。其他项参考 [`.env.example`](.env.example)。PowerShell 示例：
 
 ```powershell
-$env:DB_USERNAME="root"
-$env:DB_PASSWORD="your-password"
 $env:JWT_SECRET="replace-with-a-long-random-string"
 $env:OSS_ACCESS_KEY_ID="..."
 $env:OSS_ACCESS_KEY_SECRET="..."
