@@ -3,6 +3,7 @@ package com.nova.admin.interceptor;
 import com.nova.admin.utils.CurrentHolder;
 import com.nova.admin.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
+import jakarta.servlet.DispatcherType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +22,14 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // ERROR/ASYNC 转发不应再做鉴权，否则会把业务异常伪装成 401
+        if (request.getDispatcherType() != DispatcherType.REQUEST) {
+            return true;
+        }
+
         String token = request.getHeader("token");
         if (token == null || token.isEmpty()) {
-            log.info("token为空，响应401");
+            log.info("token为空，响应401，uri={}", request.getRequestURI());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }

@@ -16,6 +16,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login");
+                // /error 必须放行：登录等接口一旦异常会转发到 /error，
+                // 若被拦成 401，会把真实错误（如数据库连接失败）完全盖住。
+                .excludePathPatterns("/login", "/error");
     }
 }

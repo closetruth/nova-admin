@@ -1,0 +1,26 @@
+:root {
+  --nova-bg: #f3f5f9;
+  --nova-side: #0f172a;
+  --nova-side-text: #94a3b8;
+  --nova-accent: #2563eb;
+  --nova-card: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  height: 100%;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--nova-bg);
+  color: #0f172a;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
